@@ -36,13 +36,11 @@ public class DepartmentService {
     public List<Employee> getEmployeeByDepartment(Integer department) {
         return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .toList();
+                .collect(Collectors.toList());
     }
 
-    public Employee allEmployee() {
-        final List<Employee> employeeList = employeeService.getAll();
-        Map<Object, List<Employee>> streamEmployee = employeeList.stream()
+    public Map<Integer, List<Employee>> allEmployee() {
+        return employeeService.getAll().stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment(), Collectors.toList()));
-        return (Employee) streamEmployee;
     }
 }
